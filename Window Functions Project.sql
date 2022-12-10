@@ -62,4 +62,25 @@ from Employe
 select EmpID, EmpName as EmpName, EmpSalary, dense_rank() over(partition by EmpName order by EmpSalary) as denserank
 from Employe
 
+/* 
+unbounded preceding, unbounded following
+unbounded preceding: belirlenen aralıktaki ilk satır
+unbounded following: Belirlenen aralıktaki son satır
+current_row:
+preceding: önceki
+following
+*/
 
+SELECT EmpID,EmpName,EmpSalary, first_value(empID) over( partition by EmpName order by EmpSalary asc rows between unbounded preceding and unbounded following ) as FV
+from employe
+--first group by EmpName, order by asc EmpSalary and proceeding all rows. 
+--önce empname e göre gruplar, grubu empsalary e göre sıralar(asc) sonra tüm satırlar için işlem yapar.
+
+SELECT EmpID,EmpName,EmpSalary, first_value(empID) over( partition by EmpName order by EmpSalary asc rows between current row and unbounded following ) as FV
+from employe
+--proceeding between the corrent row and the other rows which located current rows below.
+--mevcuttaki satır ve sonrası için işlem yapar.
+
+SELECT EmpID,EmpName,EmpSalary, first_value(empID) over( partition by EmpName order by EmpSalary asc rows between current row and 1 following ) as FV
+from employe
+--önce empname e göre gruplar, grubu empsalary e göre sıralar(asc) ve mevcuttaki satır ve 1 sonrası için first value çalışır.
