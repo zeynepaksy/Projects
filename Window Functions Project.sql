@@ -1,4 +1,4 @@
---Window Function ( row_number, rank, dense_rank)
+--Window Functions ( row_number, rank, dense_rank)
 
 create table Employe
 (EmpID int,
