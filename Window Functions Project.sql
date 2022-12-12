@@ -84,3 +84,18 @@ from employe
 SELECT EmpID,EmpName,EmpSalary, first_value(empID) over( partition by EmpName order by EmpSalary asc rows between current row and 1 following ) as FV
 from employe
 --önce empname e göre gruplar, grubu empsalary e göre sıralar(asc) ve mevcuttaki satır ve 1 sonrası için first value çalışır.
+
+--LAG AND LEAD 
+
+--LAG: SHOW PREVIOUS VALUE ACCORDING TO PARTITION AND ORDERS.
+SELECT PROD_ID, SALES_YEAR, SALES_AMOUNT, LAG(SALES_AMOUNT) OVER(PARTITION BY PROD_ID ORDER BY SALES_YEAR) AS PREVIOUS
+FROM SALES	
+
+--LEAD: SHOW FOLLOWING VALUE ACCORDING TO PARTITION AND ORDERS.
+SELECT PROD_ID, SALES_YEAR, SALES_AMOUNT, LEAD(SALES_AMOUNT) OVER(PARTITION BY PROD_ID ORDER BY SALES_YEAR ) AS FORWARD
+FROM SALES
+
+--LAG AND LEAD DON'T ALLOW WINDOW FRAME(UNBOUNDED PRECEDING FOLLOWING)
+
+
+
